@@ -6,49 +6,49 @@ use std::{
 struct WordGrid {
     data: String,
     width: usize,
+    bytedata: Vec<u8>,
+    target: Vec<u8>,
 }
 
 impl WordGrid {
     pub fn new(file: &str) -> Self {
         let data = fs::read_to_string(file).unwrap();
         let width = data.chars().take_while(|&c| c != '\n').count() + 1;
-        // data = data.replace("\n", "");
-        Self { data, width }
+        let bytedata = data.clone().into_bytes();
+        let target = String::from("XMAS").into_bytes();
+        Self {
+            data,
+            width,
+            bytedata,
+            target,
+        }
     }
 
     fn find_all(&self) -> usize {
         let mut count = 0;
         for i in 0..self.data.len() {
             if self.check_horizontal(i) {
-                println!("Found h");
                 count += 1
             }
             if self.check_horizontalb(i) {
-                println!("Found hb");
                 count += 1
             }
             if self.check_vertical(i) {
-                println!("Found v");
                 count += 1
             }
             if self.check_verticalb(i) {
-                println!("Found vb");
                 count += 1
             }
             if self.check_diagonal_1(i) {
-                println!("Found d1");
                 count += 1
             }
             if self.check_diagonal_1b(i) {
-                println!("Found d1b");
                 count += 1
             }
             if self.check_diagonal_2(i) {
-                println!("Found d2");
                 count += 1
             }
             if self.check_diagonal_2b(i) {
-                println!("Found d2b");
                 count += 1
             }
         }
@@ -76,105 +76,97 @@ impl WordGrid {
     }
 
     fn check_horizontal(&self, idx: usize) -> bool {
-        self.data
-            .chars()
-            .skip(idx)
-            .step_by(1)
-            .take(4)
-            .collect::<String>()
-            == "XMAS"
+        let target = self.target.iter();
+        let test = self.bytedata.iter().skip(idx).step_by(1).take(4);
+        target.eq(test)
     }
 
     fn check_horizontalb(&self, idx: usize) -> bool {
-        self.data
-            .chars()
-            .rev()
-            .skip(idx)
-            .step_by(1)
-            .take(4)
-            .collect::<String>()
-            == "XMAS"
+        let target = self.target.iter();
+        let test = self.bytedata.iter().rev().skip(idx).step_by(1).take(4);
+
+        target.eq(test)
     }
 
     fn check_vertical(&self, idx: usize) -> bool {
-        self.data
-            .chars()
-            .skip(idx)
-            .step_by(self.width)
-            .take(4)
-            .collect::<String>()
-            == "XMAS"
+        let target = self.target.iter();
+
+        let test = self.bytedata.iter().skip(idx).step_by(self.width).take(4);
+        target.eq(test)
     }
 
     fn check_verticalb(&self, idx: usize) -> bool {
-        self.data
-            .chars()
+        let target = self.target.iter();
+
+        let test = self
+            .bytedata
+            .iter()
             .rev()
             .skip(idx)
             .step_by(self.width)
-            .take(4)
-            .collect::<String>()
-            == "XMAS"
+            .take(4);
+
+        target.eq(test)
     }
 
     fn check_diagonal_1(&self, idx: usize) -> bool {
-        self.data
-            .chars()
+        let target = self.target.iter();
+
+        let test = self
+            .bytedata
+            .iter()
             .skip(idx)
             .step_by(self.width - 1)
-            .take(4)
-            .collect::<String>()
-            == "XMAS"
+            .take(4);
+
+        target.eq(test)
     }
 
     fn check_diagonal_1b(&self, idx: usize) -> bool {
-        self.data
-            .chars()
+        let target = self.target.iter();
+
+        let test = self
+            .bytedata
+            .iter()
             .rev()
             .skip(idx)
             .step_by(self.width - 1)
-            .take(4)
-            .collect::<String>()
-            == "XMAS"
+            .take(4);
+
+        target.eq(test)
     }
 
     fn check_diagonal_2(&self, idx: usize) -> bool {
-        self.data
-            .chars()
+        let target = self.target.iter();
+
+        let test = self
+            .bytedata
+            .iter()
             .skip(idx)
             .step_by(self.width + 1)
-            .take(4)
-            .collect::<String>()
-            == "XMAS"
+            .take(4);
+
+        target.eq(test)
     }
 
     fn check_diagonal_2b(&self, idx: usize) -> bool {
-        self.data
-            .chars()
+        let target = self.target.iter();
+
+        let test = self
+            .bytedata
+            .iter()
             .rev()
             .skip(idx)
             .step_by(self.width + 1)
-            .take(4)
-            .collect::<String>()
-            == "XMAS"
+            .take(4);
+
+        target.eq(test)
     }
 }
 
-pub fn solution() {}
-
-fn load_test_data(file: &str) -> String {
-    // let file = File::open(file).unwrap();
-    // let lines = io::BufReader::new(file).lines().map(|x| x.unwrap().chars()).collect();
-    let mut data = fs::read_to_string(file).unwrap();
-    data = data.replace("\n", "");
-    return data;
-}
-
-fn part_one(data: String) {
-    let p1 = data.chars();
-    let p2 = data.chars().skip(1);
-    let p3 = data.chars().skip(2);
-    let p4 = data.chars().skip(3);
+pub fn solution() {
+    let grid = WordGrid::new("day4.txt");
+    println!("day 4 part 1: {}", grid.find_all())
 }
 
 #[cfg(test)]
@@ -197,5 +189,11 @@ mod tests {
     fn test_check_xmas3() {
         let grid = WordGrid::new("day4test.txt");
         assert_eq!(18, grid.find_all())
+    }
+
+    #[test]
+    fn test_check_xmas4() {
+        let grid = WordGrid::new("day4.txt");
+        assert_eq!(2297, grid.find_all())
     }
 }

@@ -143,9 +143,6 @@ fn part_one(data: &Vec<Vec<i64>>) -> u64 {
 
 fn part_two(data: &Vec<Vec<i64>>) -> u64 {
     data.iter().fold(0, |acc, level| {
-        if !level.safe_max_diff_damper(3) {
-            println!("level is not safe: {:?}", level)
-        }
         if level.safe_max_diff_damper(3) {
             acc + 1
         } else {
