@@ -5,7 +5,6 @@ use std::{
     iter::zip,
 };
 
-
 pub fn solution() {
     let (list_a, list_b) = load_day_one();
     let solution1 = day_one_part_one(list_a, list_b);

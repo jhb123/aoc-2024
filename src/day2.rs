@@ -46,53 +46,71 @@ where
 
     fn safe_max_diff_damper(self: &Self, max_diff: T) -> bool {
         if !self.is_monotonic_damper() {
-            return false
+            return false;
         }
         let binding = self.iter().rev().cloned().collect::<Vec<T>>();
         let foo = match self.is_negative_damper() {
             true => &binding,
-            false => self
+            false => self,
         };
-        let bad_idx = foo.windows(2)
+        let bad_idx = foo
+            .windows(2)
             .into_iter()
-            .take_while(|&x| x[1] > x[0] && x[1] - x[0] <= max_diff).count();
-        if bad_idx == foo.len() - 1 { return true};
-        let a = foo.iter()
+            .take_while(|&x| x[1] > x[0] && x[1] - x[0] <= max_diff)
+            .count();
+        if bad_idx == foo.len() - 1 {
+            return true;
+        };
+        let a = foo
+            .iter()
             .enumerate()
-            .filter(|&(i, _)| i != bad_idx).map(|(_, v)| v)
+            .filter(|&(i, _)| i != bad_idx)
+            .map(|(_, v)| v)
             .cloned()
             .collect::<Vec<T>>()
             .windows(2)
             .into_iter()
             .all(|x| x[1] > x[0] && x[1] - x[0] <= max_diff);
 
-        let b = foo.iter()
+        let b = foo
+            .iter()
             .enumerate()
-            .filter(|&(i, _)| i != bad_idx+1).map(|(_, v)| v)
+            .filter(|&(i, _)| i != bad_idx + 1)
+            .map(|(_, v)| v)
             .cloned()
             .collect::<Vec<T>>()
             .windows(2)
             .into_iter()
             .all(|x| x[1] > x[0] && x[1] - x[0] <= max_diff);
-        return a | b; 
+        return a | b;
     }
 
     fn is_positive_damper(self: &Self) -> bool {
-        let bad_idx = self.windows(2).into_iter().take_while(|&x| x[1] > x[0]).count();
-        if bad_idx == self.len() - 1 { return true};
+        let bad_idx = self
+            .windows(2)
+            .into_iter()
+            .take_while(|&x| x[1] > x[0])
+            .count();
+        if bad_idx == self.len() - 1 {
+            return true;
+        };
         // try take away the bad idx or the bad idx + 1
-        let a = self.iter()
+        let a = self
+            .iter()
             .enumerate()
-            .filter(|&(i, _)| i != bad_idx).map(|(_, v)| v)
+            .filter(|&(i, _)| i != bad_idx)
+            .map(|(_, v)| v)
             .cloned()
             .collect::<Vec<T>>()
             .windows(2)
             .into_iter()
             .all(|x| x[1] > x[0]);
 
-        let b = self.iter()
+        let b = self
+            .iter()
             .enumerate()
-            .filter(|&(i, _)| i != bad_idx+1).map(|(_, v)| v)
+            .filter(|&(i, _)| i != bad_idx + 1)
+            .map(|(_, v)| v)
             .cloned()
             .collect::<Vec<T>>()
             .windows(2)
@@ -102,7 +120,11 @@ where
     }
 
     fn is_negative_damper(self: &Self) -> bool {
-        self.iter().rev().cloned().collect::<Vec<T>>().is_positive_damper()
+        self.iter()
+            .rev()
+            .cloned()
+            .collect::<Vec<T>>()
+            .is_positive_damper()
     }
 }
 
@@ -227,10 +249,7 @@ mod tests {
 
     #[test]
     fn unsafe_tests() {
-        let test_cases = vec![
-            vec![1, 2, 7, 8, 9],
-            vec![9, 7, 6, 2, 1],
-        ];
+        let test_cases = vec![vec![1, 2, 7, 8, 9], vec![9, 7, 6, 2, 1]];
 
         for test_case in test_cases {
             assert!(!test_case.is_safe(3))
@@ -263,7 +282,7 @@ mod tests {
         ];
 
         for mut test_case in test_cases {
-            println!("test case {:?}",test_case);
+            println!("test case {:?}", test_case);
             let res = test_case.is_monotonic_damper();
             assert!(!res)
         }
@@ -280,7 +299,7 @@ mod tests {
             vec![0, 1, 2, 100, 4],
             vec![8, 11, 14, 16, 15],
             vec![-3, -100, -4, -5, -6],
-            ];
+        ];
 
         for mut test_case in test_cases {
             println!("Test case {:?}", test_case);
@@ -291,9 +310,7 @@ mod tests {
 
     #[test]
     fn test_not_safe_max_diff_damper() {
-        let test_cases = vec![
-            vec![1,2,7,8,9]
-            ];
+        let test_cases = vec![vec![1, 2, 7, 8, 9]];
 
         for mut test_case in test_cases {
             let res = test_case.safe_max_diff_damper(3);
@@ -301,21 +318,20 @@ mod tests {
         }
     }
 
-
     #[test]
-    fn is_positive_damper(){
+    fn is_positive_damper() {
         let test_cases = vec![
-                vec![0, 1, 2, 3, 5, 4],
-                vec![0, 1, 2, 5, 4, 5],
-                vec![0, 1, 2, 100, 3, 4],
-                vec![8, 11, 14, 16, 15],
-                vec![3,1,2],
-                vec![1,3,2],
-                vec![1,2,3],
-                vec![1, 1, 2, 3, 4],
-                vec![-1, 100, 2, 3, 4],
-                vec![-6, -5, -4, -100, -3]
-            ];
+            vec![0, 1, 2, 3, 5, 4],
+            vec![0, 1, 2, 5, 4, 5],
+            vec![0, 1, 2, 100, 3, 4],
+            vec![8, 11, 14, 16, 15],
+            vec![3, 1, 2],
+            vec![1, 3, 2],
+            vec![1, 2, 3],
+            vec![1, 1, 2, 3, 4],
+            vec![-1, 100, 2, 3, 4],
+            vec![-6, -5, -4, -100, -3],
+        ];
 
         for mut test_case in test_cases {
             let res = test_case.is_positive_damper();
@@ -324,11 +340,11 @@ mod tests {
     }
 
     #[test]
-    fn is_not_positive_damper(){
+    fn is_not_positive_damper() {
         let test_cases = vec![
-                vec![0, 1, 2, 100, 200, 3, 4],
-                // vec![100, 200, 0, 1, 2, 3, 4],
-            ];
+            vec![0, 1, 2, 100, 200, 3, 4],
+            // vec![100, 200, 0, 1, 2, 3, 4],
+        ];
 
         for mut test_case in test_cases {
             let res = test_case.is_positive_damper();
@@ -337,14 +353,14 @@ mod tests {
     }
 
     #[test]
-    fn is_negative_damper(){
+    fn is_negative_damper() {
         let test_cases = vec![
-                vec![5,4,300,2,1],
-                vec![3,1,2],
-                vec![1,3,2],
-                vec![3,2,1],
-                vec![-3, -100, -4, -5, -6]
-            ];
+            vec![5, 4, 300, 2, 1],
+            vec![3, 1, 2],
+            vec![1, 3, 2],
+            vec![3, 2, 1],
+            vec![-3, -100, -4, -5, -6],
+        ];
 
         for mut test_case in test_cases {
             println!("test case {:?}", test_case);
@@ -352,5 +368,4 @@ mod tests {
             assert!(res)
         }
     }
-
 }
