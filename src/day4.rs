@@ -1,7 +1,4 @@
-use std::{
-    fs::{self, read_to_string, File},
-    io::{self, BufRead},
-};
+use std::fs;
 
 struct WordGrid {
     data: String,
@@ -75,26 +72,6 @@ impl WordGrid {
                 count += 1
             }
             if self.check_xr1(i) {
-                count += 1
-            }
-        }
-        return count;
-    }
-
-    fn find_all_horizontal(&self) -> usize {
-        let mut count = 0;
-        for i in 0..self.data.len() {
-            if self.check_horizontal(i) {
-                count += 1
-            }
-        }
-        return count;
-    }
-
-    fn find_all_vertical(&self) -> usize {
-        let mut count = 0;
-        for i in 0..self.data.len() {
-            if self.check_vertical(i) {
                 count += 1
             }
         }
@@ -256,16 +233,36 @@ pub fn solution() {
 mod tests {
     use super::WordGrid;
 
+    fn find_all_horizontal(grid: &WordGrid) -> usize {
+        let mut count = 0;
+        for i in 0..grid.data.len() {
+            if grid.check_horizontal(i) {
+                count += 1
+            }
+        }
+        return count;
+    }
+
+    fn find_all_vertical(grid: &WordGrid) -> usize {
+        let mut count = 0;
+        for i in 0..grid.data.len() {
+            if grid.check_vertical(i) {
+                count += 1
+            }
+        }
+        return count;
+    }
+
     #[test]
     fn test_check_xmas1() {
         let grid = WordGrid::new("day4test.txt");
-        assert_eq!(3, grid.find_all_horizontal())
+        assert_eq!(3, find_all_horizontal(&grid))
     }
 
     #[test]
     fn test_check_xmas2() {
         let grid = WordGrid::new("day4test.txt");
-        assert_eq!(1, grid.find_all_vertical())
+        assert_eq!(1, find_all_vertical(&grid))
     }
 
     #[test]
@@ -280,11 +277,11 @@ mod tests {
         assert_eq!(2297, grid.find_all())
     }
 
-    // #[test]
-    // fn test_check_xmas5() {
-    //     let grid = WordGrid::new("day4test.txt");
-    //     assert_eq!(9, grid.find_all2())
-    // }
+    #[test]
+    fn test_check_xmas5() {
+        let grid = WordGrid::new("day4test.txt");
+        assert_eq!(9, grid.find_all2())
+    }
 
     #[test]
     fn test_check_xmas6() {
