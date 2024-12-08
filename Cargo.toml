@@ -9,3 +9,6 @@ edition = "2021"
 ahash = "0.8.11"
 fxhash = "0.2.1"
 regex = "1.11.1"
+
+[profile.release]
+opt-level = 2

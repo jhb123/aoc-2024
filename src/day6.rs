@@ -1,13 +1,10 @@
-// Optimisations include speeding up the hashing
-
 use ahash::AHashSet;
-// use fxhash::FxHashSet;
 use std::{
     fs::File,
+    hash::Hash,
     io::{self, BufRead},
     time::Instant,
     usize,
-    hash::Hash
 };
 
 type Coordinate = (i64, i64);
@@ -21,7 +18,7 @@ pub fn solution() {
     println!("Day 6 part 1: {visited}");
     lab.reset_guard();
 
-    let mut new_obs = AHashSet::with_capacity(2000);
+    let mut new_obs = AHashSet::new();
     let start = Instant::now(); // Start the timer
     while lab.guard_in_map() {
         if let Some(x) = lab.look_ahead() {
@@ -108,7 +105,7 @@ impl Lab {
         }
     }
 
-    fn look_ahead(&self) -> Option<Coordinate> {
+    fn look_ahead(&mut self) -> Option<Coordinate> {
         // no idea why this doesn't work
 
         // get the current location
@@ -245,8 +242,8 @@ struct Guard {
 
 impl Guard {
     fn new(position: Coordinate) -> Self {
-        let mut h = AHashSet::with_capacity(2000);
-        let mut h2 = AHashSet::with_capacity(2000);
+        let mut h = AHashSet::new();
+        let mut h2 = AHashSet::new();
 
         h.insert(position);
         h2.insert((position, Direction::North));
