@@ -151,7 +151,7 @@ fn part_two(data: &Vec<Vec<i64>>) -> u64 {
     })
 }
 
-pub fn load_day_two(file: &str) -> Vec<Vec<i64>> {
+fn load_day_two(file: &str) -> Vec<Vec<i64>> {
     let file = File::open(file).expect("missing the test data");
     let lines: Vec<String> = io::BufReader::new(file)
         .lines()
