@@ -262,7 +262,7 @@ mod tests {
             vec![-1, -3, -2, -4, -5],
         ];
 
-        for mut test_case in test_cases {
+        for test_case in test_cases {
             let res = test_case.is_monotonic_damper();
             assert!(res)
         }
@@ -278,7 +278,7 @@ mod tests {
             vec![1, 0, 4, 3, 3],
         ];
 
-        for mut test_case in test_cases {
+        for test_case in test_cases {
             println!("test case {:?}", test_case);
             let res = test_case.is_monotonic_damper();
             assert!(!res)
@@ -298,7 +298,7 @@ mod tests {
             vec![-3, -100, -4, -5, -6],
         ];
 
-        for mut test_case in test_cases {
+        for test_case in test_cases {
             println!("Test case {:?}", test_case);
             let res = test_case.safe_max_diff_damper(3);
             assert!(res)
@@ -309,7 +309,7 @@ mod tests {
     fn test_not_safe_max_diff_damper() {
         let test_cases = vec![vec![1, 2, 7, 8, 9]];
 
-        for mut test_case in test_cases {
+        for test_case in test_cases {
             let res = test_case.safe_max_diff_damper(3);
             assert!(!res)
         }
@@ -330,7 +330,7 @@ mod tests {
             vec![-6, -5, -4, -100, -3],
         ];
 
-        for mut test_case in test_cases {
+        for test_case in test_cases {
             let res = test_case.is_positive_damper();
             assert!(res)
         }
@@ -343,7 +343,7 @@ mod tests {
             // vec![100, 200, 0, 1, 2, 3, 4],
         ];
 
-        for mut test_case in test_cases {
+        for test_case in test_cases {
             let res = test_case.is_positive_damper();
             assert!(!res)
         }
@@ -359,7 +359,7 @@ mod tests {
             vec![-3, -100, -4, -5, -6],
         ];
 
-        for mut test_case in test_cases {
+        for test_case in test_cases {
             println!("test case {:?}", test_case);
             let res = test_case.is_negative_damper();
             assert!(res)

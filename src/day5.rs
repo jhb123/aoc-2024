@@ -1,7 +1,7 @@
 use std::{
     collections::{HashMap, HashSet},
     fs::File,
-    io::{self, BufRead, Read},
+    io::{self, BufRead},
 };
 
 pub fn solution() {
@@ -61,7 +61,7 @@ impl PageOrderer {
     fn is_valid_forwards(&self) -> bool {
         // check forward if it is forbidden.
         let mut required: HashSet<i64> = HashSet::new();
-        let valid_forward = self.pages.iter().for_each(|x| {
+        let _valid_forward = self.pages.iter().for_each(|x| {
             required.remove(x);
             if let Some(f) = self.rules.get(x) {
                 f.iter().for_each(|x| {
@@ -149,7 +149,7 @@ fn load_data(data: &str) -> (Vec<Pages>, Rules) {
         })
         .collect();
 
-    let sum = pages.iter().fold(0, |acc, page| {
+    let _sum = pages.iter().fold(0, |acc, page| {
         let page_order = PageOrderer::new(page.to_vec(), rules.clone());
         if page_order.is_valid() {
             acc + *page.get(page.len() / 2).unwrap()
