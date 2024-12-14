@@ -74,7 +74,7 @@ fn part2(data_i: &str) -> usize {
     let mut compressed = Vec::new();
     let mut swapped = HashSet::new();
     debug!("Moves {:?}", moves);
-    //     // let data_i = "23 33 13 31 21 41 41 31 40 2";
+
     for (file_space_i, (file_size, space_size)) in
         file_sizes.iter().zip(space_sizes.iter()).enumerate()
     {
