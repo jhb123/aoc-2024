@@ -104,7 +104,7 @@ impl TrailMap {
     }
 
     fn find_trail_2(&self, coordinate: Coordinate) -> usize {
-        let mut score = 0;
+        let _score = 0;
         if let Some(start_node) = self.data.clone().get_mut(&coordinate) {
             start_node.populate_graph(&self);
             // n.show(self);
@@ -283,7 +283,7 @@ impl TrailNode {
         for row in 0..map.height {
             for col in 0..map.width {
                 let coordinate = Coordinate::new(col.try_into().unwrap(), row.try_into().unwrap());
-                if let Some(&n) = visited.get(&coordinate) {
+                if let Some(&_n) = visited.get(&coordinate) {
                     let node = map.data.get(&coordinate).unwrap();
                     print!("\x1b[41;37m{}\x1b[0m", node.elevation);
                 } else {
