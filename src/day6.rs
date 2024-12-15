@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use ahash::AHashSet;
 use std::{
     fs::File,
