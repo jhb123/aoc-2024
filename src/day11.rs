@@ -11,7 +11,7 @@ struct Key {
 
 pub fn solution() {
     let data = fs::read_to_string("day11.txt").unwrap();
-    let mut nums: Vec<u128> = data
+    let nums: Vec<u128> = data
         .split_ascii_whitespace()
         .map(|s| s.parse::<u128>().unwrap())
         .collect();

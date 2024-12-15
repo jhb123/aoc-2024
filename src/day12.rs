@@ -6,10 +6,10 @@ use std::{
 
 pub fn solution() {
     let f = Farm::load_data("day12.txt");
-    let p = f.calculate_price();
+    let _p = f.calculate_price();
     // f.display();
 
-    let sf = f.find_region(1, 1);
+    let _sf = f.find_region(1, 1);
 
     // sf.display();
     // let a = sf.find_area();
@@ -251,7 +251,7 @@ impl Farm {
     }
 
     fn find_perimeter(&self) -> Result<usize, &str> {
-        if let Some(c) = &self.special_coords {
+        if let Some(_c) = &self.special_coords {
             let (i, j) = self
                 .special_coords
                 .as_ref()
@@ -332,7 +332,7 @@ impl Farm {
         println!("{width}x{height}");
 
         let mut data = vec![];
-        for i in 0..padding {
+        for _i in 0..padding {
             let mut f = vec!['.'; width + 2 * padding];
             data.append(&mut f);
         }
@@ -350,7 +350,7 @@ impl Farm {
             data.append(&mut line_data);
         }
 
-        for i in 0..padding {
+        for _i in 0..padding {
             let mut f = vec!['.'; width + 2 * padding];
             data.append(&mut f);
         }
