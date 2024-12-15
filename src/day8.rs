@@ -167,14 +167,14 @@ impl std::fmt::Display for AntennaMap {
             for col in 0..self.width {
                 let m = CartesianCoordinate::new(col, row);
                 if let Some(s) = self.hash_map.get(&m) {
-                    write!(f, "{s}");
+                    let _ = write!(f, "{s}");
                 } else if let Some(_s) = self.anti_nodes.get(&m) {
-                    write!(f, "#");
+                    let _ = write!(f, "#");
                 } else {
-                    write!(f, ".");
+                    let _ = write!(f, ".");
                 }
             }
-            writeln!(f, "");
+            let _ = writeln!(f, "");
         }
         Ok(())
     }

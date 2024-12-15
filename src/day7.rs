@@ -100,14 +100,14 @@ where
         } else if self.data.len() == 0 && self.val != target {
             return false;
         } else {
-            mem::replace(
+            let _ = mem::replace(
                 &mut self.right_mult,
                 Some(Box::new(DFS::new(
                     self.data[1..self.data.len()].to_vec(),
                     self.val * self.data[0],
                 ))),
             );
-            mem::replace(
+            let _ = mem::replace(
                 &mut self.left_add,
                 Some(Box::new(DFS::new(
                     self.data[1..self.data.len()].to_vec(),
@@ -155,14 +155,14 @@ where
         } else if self.data.len() == 0 && self.val != target {
             return false;
         } else {
-            mem::replace(
+            let _ = mem::replace(
                 &mut self.right_mult,
                 Some(Box::new(DFS2::new(
                     self.data[1..self.data.len()].to_vec(),
                     self.val * self.data[0],
                 ))),
             );
-            mem::replace(
+            let _ = mem::replace(
                 &mut self.left_add,
                 Some(Box::new(DFS2::new(
                     self.data[1..self.data.len()].to_vec(),
@@ -170,7 +170,7 @@ where
                 ))),
             );
             if let Ok(r) = format!("{}{}", self.val, self.data[0]).parse() {
-                mem::replace(
+                let _ = mem::replace(
                     &mut self.middle_concat,
                     Some(Box::new(DFS2::new(
                         self.data[1..self.data.len()].to_vec(),
