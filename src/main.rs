@@ -1,4 +1,4 @@
-use aoc::day13;
+use aoc::day14;
 
 fn main() {
     pretty_env_logger::init();
@@ -14,5 +14,6 @@ fn main() {
     // day10::solution();
     // day11::solution();
     // day12::solution();
-    day13::solution();
+    // day13::solution();
+    day14::solution();
 }
