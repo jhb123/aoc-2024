@@ -36,14 +36,14 @@ pub fn solution() {
 
     let robots = load_data("day14.txt");
 
-    let initial_pos: Vec<(i64, i64)> = robots.iter().map(|r| (r.x, r.y)).collect();
+    let _initial_pos: Vec<(i64, i64)> = robots.iter().map(|r| (r.x, r.y)).collect();
 
     for i in 0..10000 {
         let mut positions = vec![];
         for robot in robots.iter().cloned() {
             positions.push(calculate_position(&robot, i))
         }
-        let mut set: HashSet<_> = HashSet::from_iter(positions.iter());
+        let set: HashSet<_> = HashSet::from_iter(positions.iter());
         if set.len() == robots.len() {
             render(positions);
             println!("step {i}");

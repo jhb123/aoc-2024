@@ -92,7 +92,7 @@ fn load_data2(path: &str) -> Vec<ClawMachine> {
 
 // its been a while, but I eventually remembered how do maths.
 fn find_coords(claw_machine: ClawMachine) -> Option<(f64, f64)> {
-    let determinant = (claw_machine.a.0 * claw_machine.b.1 - claw_machine.b.0 * claw_machine.a.1);
+    let determinant = claw_machine.a.0 * claw_machine.b.1 - claw_machine.b.0 * claw_machine.a.1;
     let n = (claw_machine.b.1 * claw_machine.prize.0 - claw_machine.b.0 * claw_machine.prize.1)
         / determinant;
     let m = (claw_machine.a.0 * claw_machine.prize.1 - claw_machine.a.1 * claw_machine.prize.0)
