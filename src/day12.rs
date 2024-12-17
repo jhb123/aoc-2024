@@ -83,17 +83,16 @@ impl Farm {
         return total_price;
     }
 
-    fn count_corners(&self, coord: Option<(usize,usize)>) -> usize {
+    fn count_corners(&self, coord: Option<(usize, usize)>) -> usize {
         println!("");
         self.display();
         let r = match coord {
             Some(r) => r,
             None => {
                 let region = self.special_coords.as_ref().unwrap();
-                region.iter().cloned().next().unwrap()   
-            },
+                region.iter().cloned().next().unwrap()
+            }
         };
-        
 
         let c = self.get_ij(r.0, r.1).unwrap();
 
@@ -105,7 +104,7 @@ impl Farm {
                 let c0 = self.get_ij(i, j).unwrap();
                 let c1 = self.get_ij(i - 1, j).unwrap();
                 let c2 = self.get_ij(i, j - 1).unwrap();
-                if c1 != c && c2 != c && c0==c {
+                if c1 != c && c2 != c && c0 == c {
                     concave_count += 1
                 }
             }
@@ -117,7 +116,7 @@ impl Farm {
                 let c0 = self.get_ij(i, j).unwrap();
                 let c1 = self.get_ij(i + 1, j).unwrap();
                 let c2 = self.get_ij(i, j + 1).unwrap();
-                if c1 != c && c2 != c && c0==c{
+                if c1 != c && c2 != c && c0 == c {
                     concave_count += 1
                 }
             }
@@ -129,7 +128,7 @@ impl Farm {
                 let c0 = self.get_ij(i, j).unwrap();
                 let c1 = self.get_ij(i - 1, j).unwrap();
                 let c2 = self.get_ij(i, j + 1).unwrap();
-                if c1 != c && c2 != c && c0==c{
+                if c1 != c && c2 != c && c0 == c {
                     concave_count += 1
                 }
             }
@@ -141,13 +140,12 @@ impl Farm {
                 let c0 = self.get_ij(i, j).unwrap();
                 let c1 = self.get_ij(i + 1, j).unwrap();
                 let c2 = self.get_ij(i, j - 1).unwrap();
-                if c1 != c && c2 != c && c0==c{
+                if c1 != c && c2 != c && c0 == c {
                     concave_count += 1
                 }
             }
         }
 
-        
         let mut convex_count = 0;
         //    x =
         //    = .
@@ -157,7 +155,7 @@ impl Farm {
                 let c1 = self.get_ij(i + 1, j + 1).unwrap();
                 let c2 = self.get_ij(i + 1, j).unwrap();
                 let c3 = self.get_ij(i, j + 1).unwrap();
-                if c1 != c  && c2==c  && c3==c && c0==c{
+                if c1 != c && c2 == c && c3 == c && c0 == c {
                     convex_count += 1
                 }
             }
@@ -169,7 +167,7 @@ impl Farm {
                 let c1 = self.get_ij(i - 1, j - 1).unwrap();
                 let c2 = self.get_ij(i - 1, j).unwrap();
                 let c3 = self.get_ij(i, j - 1).unwrap();
-                if c1 != c  && c2==c  && c3==c && c0==c{
+                if c1 != c && c2 == c && c3 == c && c0 == c {
                     convex_count += 1
                 }
             }
@@ -180,7 +178,7 @@ impl Farm {
                 let c1 = self.get_ij(i + 1, j - 1).unwrap();
                 let c2 = self.get_ij(i + 1, j).unwrap();
                 let c3 = self.get_ij(i, j - 1).unwrap();
-                if c1 != c  && c2==c  && c3==c && c0==c{
+                if c1 != c && c2 == c && c3 == c && c0 == c {
                     convex_count += 1
                 }
             }
@@ -191,7 +189,7 @@ impl Farm {
                 let c1 = self.get_ij(i - 1, j + 1).unwrap();
                 let c2 = self.get_ij(i - 1, j).unwrap();
                 let c3 = self.get_ij(i, j + 1).unwrap();
-                if c1 != c  && c2==c  && c3==c && c0==c{
+                if c1 != c && c2 == c && c3 == c && c0 == c {
                     convex_count += 1
                 }
             }
@@ -307,7 +305,6 @@ impl Farm {
                 if let Some(c) = self.get_ij(i as usize, j as usize) {
                     if c == '.' {
                         print!("\x1b[2m\x1b[90m{c}\x1b[0m")
-
                     } else {
                         print!("{c}")
                     }

@@ -6,8 +6,7 @@
 /// modifying this tree to be a graph and caching
 /// certain parts of the calculation would be quite a
 /// bit of effort!
-/// 
-
+///
 use std::{
     collections::{HashMap, HashSet},
     fmt::Display,

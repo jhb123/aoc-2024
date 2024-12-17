@@ -1,6 +1,5 @@
 #![allow(dead_code)]
 /// this is a fairly horrible implementation of a tree
-
 use std::{
     fmt::Display,
     fs::File,
